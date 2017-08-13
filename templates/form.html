@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            Super Sprinter 3000 -
+            {% if story_id %}
+                Edit Story
+            {% else %}
+                Add new story
+            {% endif %}
+        </title>
+    </head>
+    <body>
+        <h2 id="header">
+            User Story manager -
+            {% if story_id %}
+                Edit Story
+            {% else %}
+                Add new story
+            {% endif %}
+        </h2>
+        <form id="form"
+            {% if story_to_edit %}
+                action="/story/{{story_to_edit[0]}}/edit"
+            {% else %}
+                action="/"
+            {% endif %}
+            method="post">
+                <p>
+                    <label for="story_title">Story Title</label><br>
+                    <textarea name="story_title" id="story_title" class="texttitle">{{ story_to_edit[1] }}</textarea>
+                </p>
+                <p>
+                    <label for="user_story">User Story</label><br>
+                    <textarea name="user_story" id="user_story">{{ story_to_edit[2] }}</textarea>
+                </p>
+                <p>
+                    <label for="acc_criteria">Acceptance criteria</label><br>
+                    <textarea name="acc_criteria" id="acc_criteria">{{ story_to_edit[3] }}</textarea>
+                </p>
+                <p>
+                    <label for="b_value">Business Value</label><br>
+                    <input type="number" name="b_value" id="b_value" class="button"
+                    min="100" max="1500" step="100"
+                        {% if story_id %}
+                            value={{ story_to_edit[4] }}
+                        {% else %}
+                            value="100"
+                        {% endif %}>
+                </p>
+                <p>
+                    <label for="estimation">Estimation (h)</label><br>
+                    <input type="number" name="estimation" id="estimation" class="button"
+                    min="0.5" max="40" step="0.5"
+                        {% if story_id %}
+                            value={{ story_to_edit[5] }}
+                        {% else %}
+                            value="0.5"
+                        {% endif %}>
+                </p>
+                <p>
+                    <label for="status">Status</label><br>
+                    <select name="status" id="status">
+                        <option id="planning"
+                            {% if story_to_edit[6]=="Planning" %}
+                                selected="selected"
+                            {% endif %}>
+                            Planning
+                        </option>
+                        <option id="todo"
+                            {% if story_to_edit[6]=="ToDo" %}
+                                selected="selected"
+                            {% endif %}>
+                            ToDo
+                        </option>
+                        <option id="progress"
+                            {% if story_to_edit[6]=="In Progress" %}
+                                selected="selected"
+                            {% endif %}>
+                            In Progress
+                        </option>
+                        <option id="review"
+                            {% if story_to_edit[6]=="Review" %}
+                                selected="selected"
+                            {% endif %}>
+                            Review
+                        </option>
+                        <option id="done"
+                            {% if story_to_edit[6]=="Done" %}
+                                selected="selected"
+                            {% endif %}>
+                            Done
+                        </option>
+                    </select>
+                    <input type="submit" name="buttoncreate" id="buttoncreate" class="buttoncreate"
+                        {% if story_id %}
+                            value="Update"
+                        {% else %}
+                            value="Create"
+                        {% endif %}>
+                </p>
+        </form>
+    </body>
+</html>
